@@ -1,20 +1,25 @@
 # Timer_on_basys3
-本專案在 Xilinx Basys3 開發板上實現了一個多功能計時與鬧鐘系統。
+This project implements a multi-functional Digital Timer and Alarm System on the Xilinx Basys3 FPGA development board.
+## Key Features
+- Advanced Button Detection: Supports multiple click patterns including single, double, triple, and quadruple clicks, as well as long-press detection.
+- Time & Alarm Management: Independent configuration for hours, minutes, and seconds. Triggers a 10-second LED alert when the current time matches the alarm setting.
+- Dynamic Display Control: Managed by a Finite State Machine (FSM), allowing users to toggle between "Hour:Minute" and "Minute:Second" views on the 7-segment display.
+## Module Architecture
+- btn_system.v: Handles complex button behaviors and signal debouncing.
+- FSM_set_toa.v: The master controller FSM that manages system modes and setting states.
+- alarm_system.v: Core logic for real-time clock counting and alarm trigger comparison.
+- seg_ctr.v & display_ctrl.v: Drives the 4-digit 7-segment display and handles data multiplexing.
+- bin2bcd.v & add3.v: Converts binary time data into BCD format for accurate decimal display.
+- basys3.xdc: Hardware constraint file defining pin assignments (e.g., W5 for clock, U16 for LED).
 
-## 核心功能
-- 多功能按鍵偵測：支援單擊、雙擊、三擊、四擊及長按 。
-- 時間與鬧鐘管理：可分別設定時、分、秒，並在時間吻合時觸發 10 秒的 LED 警報 。
-- 靈活切換顯示：透過主狀態機控制，可在七段顯示器上切換顯示「時分」或「分秒」 。
+## Quick Start
+Open Xilinx Vivado and create a new project targeting the Basys3 board.
+1. Import all .v source files into the project.
+2. Add basys3.xdc as the design constraint.
+3. Run Synthesis, Implementation, and Generate Bitstream.
+4. Program the device via Hardware Manager.
 
-## 模組架構
-- btn_system.v：處理複雜按鍵行為與除彈跳 。
-- FSM_set_toa.v：系統主控狀態機，管理設定模式切換 。
-- alarm_system.v：負責計時邏輯與鬧鐘觸發判斷 。
-- seg_ctr.v & display_ctrl.v：驅動七段顯示器並處理顯示內容選擇 。
-- bin2bcd.v & add3.v：將數值轉為 BCD 碼以便顯示 。
-- basys3.xdc：定義硬體腳位（如 W5 為時脈、U16 為 LED 等） 。
-
-## 快速使用
-1. 使用 Vivado 開啟專案並匯入所有 .v 原始碼 。
-2. 加入 basys3.xdc 約束檔 。
-3. 進行 Synthesis、Implementation 並產生 Bitstream 燒錄至 Basys3 。
+## License & Disclaimer
+This project is licensed under the MIT License.
+Copyright (c) 2025 masterfeng123
+Disclaimer: This project is specifically designed for the Basys3 development board. Please verify pin assignments and voltage standards before deploying on other hardware to prevent damage.
